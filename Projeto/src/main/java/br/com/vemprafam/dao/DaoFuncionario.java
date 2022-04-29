@@ -26,11 +26,11 @@ public class DaoFuncionario {
 		List<Funcionario> result = new ArrayList<>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(
-				"SELECT re,nome,salario,datanascimento from funcionarios");
+				"SELECT re,nome,salario,datanascimento,email from funcionarios");
 			ResultSet rs = pstmt.executeQuery();
 			while( rs.next() ) {
 				result.add(new Funcionario(rs.getInt(1),
-						rs.getString(2),rs.getDouble(3),rs.getDate(4)));
+						rs.getString(2),rs.getDouble(3),rs.getDate(4),rs.getString(5)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,18 +41,30 @@ public class DaoFuncionario {
 	public void inserirFuncionario(Funcionario funcionario) {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(
-					"INSERT INTO funcionarios values(?,?,?,?)");
+					"INSERT INTO funcionarios values(?,?,?,?,?)");
 			pstmt.setInt(1, funcionario.getRe());
 			pstmt.setString(2, funcionario.getNome());
 			pstmt.setDouble(3, funcionario.getSalario());
 			pstmt.setDate(4, 
 			new java.sql.Date(funcionario.getDataNascimento().getTime()));
+			pstmt.setString(5,funcionario.getEmail());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		
+	}
+	
+	public void excluirFuncionario( int re ) {
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(
+					"DELETE FROM funcionarios WHERE re=?");
+			pstmt.setInt(1, re);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 		
 	}
 }

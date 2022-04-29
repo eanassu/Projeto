@@ -6,24 +6,36 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Funcionários</title>
 </head>
 <body>
 <c:import url="cabecalho.jsp"/>
 <jsp:useBean id="dao" class="br.com.vemprafam.dao.DaoFuncionario"/>
 <table border="1">
 <tr>
-<th>RE</th><th>nome</th><th>salário</th><th>nascimento</th>
+<th>RE</th><th>nome</th><th>salário</th><th>nascimento</th><th>e-mail</th>
 </tr>
-<c:forEach var="funcionario" items="${dao.funcionarios}">
-<tr>
+<c:forEach var="funcionario" items="${dao.funcionarios}" varStatus="id">
+<tr bgcolor="#${id.count%2==0?'aaee88':'ffffff' }">
 <td>${funcionario.re}</td>
 <td>${funcionario.nome}</td>
 <td><fmt:formatNumber value="${funcionario.salario}" 
 	type="currency"/></td>
 <td><fmt:formatDate value="${funcionario.dataNascimento}" 
    pattern="dd/MM/yyyy"/></td>
+<td>
+<c:if test="${not empty funcionario.email}">
+  	<a href="mailto:${funcionario.email}">${funcionario.email}</a>
+</c:if>
+<c:if test="${empty funcionario.email}">
+	e-mail não informado
+</c:if>
+</td>
+<td>
+<a href="excluir?re=${funcionario.re}">excluir</a>
+</td>
 </tr>
+
 </c:forEach>
 </table>
 <a href="/Projeto">voltar</a><br/>

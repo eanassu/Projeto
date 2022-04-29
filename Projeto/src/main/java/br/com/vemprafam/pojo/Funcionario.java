@@ -7,15 +7,17 @@ public class Funcionario {
 	private String nome;
 	private double salario;
 	private Date dataNascimento;
+	private String email;
 	public Funcionario() {
 		super();
 	}
-	public Funcionario(int re, String nome, double salario, Date dataNascimento) {
+	public Funcionario(int re, String nome, double salario, Date dataNascimento, String email) {
 		super();
 		this.re = re;
 		this.nome = nome;
 		this.salario = salario;
 		this.dataNascimento = dataNascimento;
+		this.email = email;
 	}
 	public int getRe() {
 		return re;
@@ -41,10 +43,16 @@ public class Funcionario {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	@Override
 	public String toString() {
 		return "Funcionario [re=" + re + ", nome=" + nome + ", salario=" + salario + ", dataNascimento="
-				+ dataNascimento + "]";
+				+ dataNascimento + ", email=" + email + "]";
 	}
 	
 }

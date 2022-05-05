@@ -34,6 +34,11 @@
 <td>
 <a href="excluir?re=${funcionario.re}">excluir</a>
 </td>
+<td>
+<a href="alterar?re=${funcionario.re}">alterar</a>
+</td>
+
+
 </tr>
 
 </c:forEach>

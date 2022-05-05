@@ -1,5 +1,6 @@
 package br.com.vemprafam.pojo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Funcionario {
@@ -10,6 +11,9 @@ public class Funcionario {
 	private String email;
 	public Funcionario() {
 		super();
+	}
+	public String getDataNascimentoFormat() {
+		return new SimpleDateFormat("dd/MM/yyyy").format(this.dataNascimento);
 	}
 	public Funcionario(int re, String nome, double salario, Date dataNascimento, String email) {
 		super();

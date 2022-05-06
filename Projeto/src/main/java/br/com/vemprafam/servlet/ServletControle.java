@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.vemprafam.dao.DaoFuncionario;
+import br.com.vemprafam.logica.Logica;
+
 
 /**
- * Servlet implementation class ServletExclusao
+ * Servlet implementation class ServletControle
  */
-@WebServlet("/excluir")
-public class ServletExclusao extends HttpServlet {
+@WebServlet("/controle")
+public class ServletControle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletExclusao() {
+    public ServletControle() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +31,16 @@ public class ServletExclusao extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int re = Integer.parseInt(request.getParameter("re"));
-		DaoFuncionario dao = new DaoFuncionario();
-		dao.excluirFuncionario(re);
-		RequestDispatcher rd = request.getRequestDispatcher("/Funcionarios1.jsp");
-		rd.forward(request, response);
+		try {
+			String op = request.getParameter("op");
+			Class<?> classe = Class.forName("br.com.vemprafam.logica.Logica" + op);
+			Logica logica = (Logica) classe.getConstructors()[0].newInstance();
+			String pagina = logica.executar(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher(pagina);
+			rd.forward(request, response);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**

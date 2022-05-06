@@ -32,10 +32,10 @@
 </c:if>
 </td>
 <td>
-<a href="excluir?re=${funcionario.re}">excluir</a>
+<a href="controle?re=${funcionario.re}&op=Excluir">excluir</a>
 </td>
 <td>
-<a href="alterar?re=${funcionario.re}">alterar</a>
+<a href="controle?re=${funcionario.re}&op=Alterar">alterar</a>
 </td>
 
 
